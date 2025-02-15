@@ -3,6 +3,10 @@ import java.io.*;
 
 public class Main {
 
+  // 우하좌상
+  static int[] dr = { 0, 1, 0, -1 };
+  static int[] dc = { 1, 0, -1, 0 };
+
   public static void main(String[] args) throws IOException {
 
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -14,75 +18,20 @@ public class Main {
       int N = Integer.parseInt(br.readLine());
       int[][] snail = new int[N][N];
 
-      // 가로
-      int x = 0;
-      // 세로
-      int y = 0;
-      // 2 : ↓, 4 : ←, 6 : →, 8 : ↑
-      int direction = 6;
-      snail[0][0] = 1;
-      for (int i = 2; i <= N * N; i++) {
+      int r = 0; // row
+      int c = 0; // column
+      int dir = 0; // 방향
+      for (int i = 1; i <= N * N; i++) {
+        snail[r][c] = i;
 
-        switch (direction) {
-          case 2:
-            y++;
-            break;
-          case 4:
-            x--;
-            break;
-          case 6:
-            x++;
-            break;
-          case 8:
-            y--;
-            break;
+        // 방향전환
+        if (r + dr[dir] < 0 || r + dr[dir] >= N || c + dc[dir] < 0 || c + dc[dir] >= N
+            || snail[r + dr[dir]][c + dc[dir]] != 0) {
+          dir = (dir + 1) % 4;
         }
 
-        // 범위 초과 시 방향 변경
-        if (x >= N || x < 0 || y >= N || y < 0) {
-
-          if (x >= N) {
-            direction = 2;
-            x--;
-            y++;
-          } else if (x < 0) {
-            direction = 8;
-            x++;
-            y--;
-          } else if (y >= N) {
-            direction = 4;
-            y--;
-            x--;
-          } else if (y < 0) {
-            direction = 6;
-            y++;
-            x++;
-          }
-          ;
-        }
-
-        // 다음 칸이 빈칸이 아닐 시 방향 변경
-        if (snail[y][x] != 0) {
-          if (direction == 2) {
-            direction = 4;
-            y--;
-            x--;
-          } else if (direction == 4) {
-            direction = 8;
-            x++;
-            y--;
-          } else if (direction == 6) {
-            direction = 2;
-            x--;
-            y++;
-          } else if (direction == 8) {
-            direction = 6;
-            y++;
-            x++;
-          }
-        }
-
-        snail[y][x] = i;
+        r = r + dr[dir];
+        c = c + dc[dir];
       }
 
       // 출력
