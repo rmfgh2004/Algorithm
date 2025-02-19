@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Main {
+public class DP_S1_12026 {
 
   public static void main(String[] args) throws IOException {
 

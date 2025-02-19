@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Main {
+public class DP_G4_9252 {
     
     static long[][] dp;
     static char[] A, B;

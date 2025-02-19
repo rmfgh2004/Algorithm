@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Main {
+public class J1240 {
 
   static String[] secret_num = {
       "0001101",

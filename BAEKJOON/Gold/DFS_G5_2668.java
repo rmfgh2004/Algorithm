@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Main {
+public class DFS_G5_2668 {
 
     static int N;
     static int[] A;

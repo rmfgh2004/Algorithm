@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Main {
+public class J1824 {
 
   static int[] dx = { 0, 1, 0, -1 };
   static int[] dy = { 1, 0, -1, 0 };

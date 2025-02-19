@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Main {
+public class DFS_S3_2606 {
 
     static ArrayList<Integer>[] A;
     static boolean[] visited;

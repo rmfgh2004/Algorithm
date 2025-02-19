@@ -13,7 +13,7 @@ class Emoji {
   }
 }
 
-public class Main {
+public class BFS_G5_14226 {
 
   public static void main(String[] args) throws IOException {
 

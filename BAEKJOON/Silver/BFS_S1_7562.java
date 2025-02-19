@@ -13,7 +13,7 @@ class Point {
   }
 }
 
-public class Main {
+public class BFS_S1_7562 {
 
   // 나이트 이동 가능한 경로
   static int[] dx = { -2, -1, 1, 2, 2, 1, -1, -2 };

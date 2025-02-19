@@ -1,8 +1,7 @@
-package project;
 import java.util.*;
 import java.io.*;
 
-public class Main {
+public class DFS_G4_1987 {
     
     static int N, M, max;
     static int[] dx = {0, 0, 1, -1};

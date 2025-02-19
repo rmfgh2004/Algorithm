@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Main {
+public class DFS_S1_14716 {
 
     static int N, M;
     static int[] dx = {0, 1, 1, 1, 0, -1, -1, -1};

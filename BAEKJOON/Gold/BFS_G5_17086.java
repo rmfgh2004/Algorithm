@@ -13,7 +13,7 @@ class Space {
   }
 }
 
-public class Main {
+public class BFS_G5_17086 {
 
   static int[] dx = { 0, 1, 1, 1, 0, -1, -1, -1 };
   static int[] dy = { 1, 1, 0, -1, -1, -1, 0, 1 };

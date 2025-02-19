@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Main {
+public class BFS_G4_13913 {
 
   static int[] times = new int[100001];
   static int[] location = new int[100001];

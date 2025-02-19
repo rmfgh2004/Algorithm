@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Main {
+public class J1954 {
 
   // 우하좌상
   static int[] dr = { 0, 1, 0, -1 };

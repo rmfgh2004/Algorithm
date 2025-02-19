@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Main {
+public class DP_S3_2579 {
 
   static int[] A;
   static long[] dp;
