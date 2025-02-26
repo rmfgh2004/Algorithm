@@ -6,23 +6,21 @@ class Atom {
     int c;
     int dir;
     int e;
-    int time;
 
-    public Atom(int c, int r, int dir, int e, int time) {
+    public Atom(int r, int c, int dir, int e) {
         this.r = r;
         this.c = c;
         this.dir = dir;
         this.e = e;
-        this.time = time;
     }
 }
 
 public class J5648 {
 
-    static int[] dr = {-1, 1, 0, 0};
+    static int[] dr = {1, -1, 0, 0};
     static int[] dc = {0, 0, -1, 1};
-    static int max = 2001, sum;
-    static Atom[][] map;
+    static int sum;
+    static int[][] map = new int[4001][4001];
     static Queue<Atom> q;
 
     public static void main(String[] args) throws IOException {
@@ -34,15 +32,18 @@ public class J5648 {
         int turn = 1;
         while (T-- > 0) {
             int N = Integer.parseInt(br.readLine());
-            map = new Atom[max][max];
             q = new LinkedList<Atom>();
             sum = 0;
 
             for (int i = 0; i < N; i++) {
                 StringTokenizer st = new StringTokenizer(br.readLine());
-                Atom atom = new Atom(1000 + Integer.parseInt(st.nextToken()), 1000 + Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()), 0);
+                int c = Integer.parseInt(st.nextToken());
+                int r = Integer.parseInt(st.nextToken());
+                int dir = Integer.parseInt(st.nextToken());
+                int e = Integer.parseInt(st.nextToken());
+
+                Atom atom = new Atom(r * 2 + 2000, c * 2 + 2000, dir, e);
                 q.offer(atom);
-                map[atom.r][atom.c] = atom;
             }
             bfs();
             
@@ -56,31 +57,24 @@ public class J5648 {
 
     private static void bfs() {
         
-        int cnt = 0;
         while (!q.isEmpty()) {
             Atom atom = q.poll();
-            atom.time++;
-            int nr = atom.r + dr[atom.dir];
-            int nc = atom.c + dc[atom.dir];
-            if (nr < 0 || nr >= max || nc < 0 || nc >= max) continue;
-
-            // 동시 충돌
-            if (map[nr][nc] != null && (map[nr][nc].time == atom.time || map[nr][nc].time == atom.time - 1)) {
-                System.out.println(map[nr][nc].time + " / " + atom.time);
-                sum += map[nr][nc].e + atom.e;
-                map[nr][nc] = null;
-                map[atom.r][atom.c] = null;
+            
+            // 지금 무언가가 합쳐진 상태
+            if (map[atom.r][atom.c] > atom.e) {
+                sum += map[atom.r][atom.c];
+                map[atom.r][atom.c] = 0;
                 continue;
             }
-            
-            // 이동
-            map[atom.r][atom.c] = null;
-            map[nr][nc] = atom;
-            q.add(new Atom(nc, nr, atom.dir, atom.e, atom.time));
-            
-            cnt++;
 
+            map[atom.r][atom.c] = 0;
+            int nr = atom.r + dr[atom.dir];
+            int nc = atom.c + dc[atom.dir];
+            if (nr < 0 || nr > 4000 || nc < 0 || nc > 4000) continue;
+
+            if (map[nr][nc] == 0) q.add(new Atom(nr, nc, atom.dir, atom.e));
             
+            map[nr][nc] += atom.e;
         }
 
     }
