@@ -5,4 +5,4 @@
 
 <br>
 
-1. [BFS]("https://github.com/rmfgh2004/Algorithm/blob/main/Theory/BFS.md")
+1. [BFS]("/workspaces/Algorithm/Theory/BFS.md")
