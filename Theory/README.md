@@ -6,3 +6,4 @@
 <br>
 
 1. [BFS](BFS.md)
+2. [DFS](DFS.md)
