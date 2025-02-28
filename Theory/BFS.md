@@ -3,7 +3,7 @@
 #### 너비 우선 탐색이란
 시작 노드로부터 한 단계식 내려가며 같은 단계에 있는 노드들 부터 먼저 방문
 
-<img src="/workspaces/Algorithm/Theory/assets/DFS_BFS.gif">
+<img src="assets/DFS_BFS.gif">
 
 #### 특징
 1. 선입선출(FIFO) 방식
