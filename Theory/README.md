@@ -5,4 +5,4 @@
 
 <br>
 
-1. [BFS]("/workspaces/Algorithm/Theory/BFS.md")
+1. [BFS]("BFS.md")
