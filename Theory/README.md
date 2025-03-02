@@ -5,5 +5,7 @@
 
 <br>
 
-1. [BFS](BFS.md)
-2. [DFS](DFS.md)
+1. [Algorithm](Algorithm.md)
+2. [BFS](BFS.md)
+3. [DFS](DFS.md)
+4. [Greedy](Greedy.md)
