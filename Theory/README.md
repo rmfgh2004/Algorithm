@@ -14,8 +14,15 @@
 |알고리즘|이해|
 |------|---|
 |BFS|★☆|
+|Binary Search||
 |DFS|★☆|
+|Dijkstra||
+|DP||
 |Greedy|☆|
+|KMP||
+|Tree||
+|Union Find||
+|Sorting||
 
 1. [Algorithm](Algorithm.md)
 2. [BFS](BFS.md)
