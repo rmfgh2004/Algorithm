@@ -23,34 +23,28 @@ public class Simulation_G4_14502 {
             }
         }
         
-        // 벽 설치
-        int r1, r2, r3, c1, c2, c3;
-        for (int i = 0; i < N * M; i++) {
-            r1 = i / M;
-            c1 = i % M;
-            if (map[r1][c1] != 0) continue;
-            map[r1][c1] = 1;
+        dfs(0);
+        System.out.println(max);
+    }
 
-            for (int j = 0; j < N * M; j++) {
-                r2 = j / M;
-                c2 = j % M;
-                if (map[r2][c2] != 0) continue;
-                map[r2][c2] = 1;
+    // 벽 세우기
+    private static void dfs(int wallCnt) {
 
-                for (int k = 0; k < N * M; k++) {
-                    r3 = k / M;
-                    c3 = k % M;
-                    if (map[r3][c3] != 0) continue;
-                    map[r3][c3] = 1;
-                    bfs();
-                    map[r3][c3] = 0;
-                }
-                map[r2][c2] = 0;
-            }
-            map[r1][c1] = 0;
+        // 벽 3개 세우면 바이러스 전염 및 안전구역 카운트
+        if (wallCnt == 3) {
+            bfs();
+            return;
         }
 
-        System.out.println(max);
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < M; j++) {
+                if (map[i][j] == 0) {
+                    map[i][j] = 1;
+                    dfs(wallCnt + 1);
+                    map[i][j] = 0;
+                }
+            }
+        }
     }
 
     // 바이러스 전염
