@@ -1,106 +1,78 @@
 import java.util.*;
 import java.io.*;
 
+class Pos {
+    int x;
+    int y;
+    
+    Pos(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+
 public class Simulation_G5_15686 {
     
-    static int[] dr = {-1, 0, 1, 0};
-    static int[] dc = {0, 1, 0, -1};
     static int N, M, min;
-    static ArrayList<int[]> chickens, homes;
-    static boolean[] visited;
+    static ArrayList<Pos> chickens, homes;
+    static boolean[] open;
 
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
-        min = Integer.MAX_VALUE;
+
         int[][] map = new int[N][N];
         chickens = new ArrayList<>();
         homes = new ArrayList<>();
+        min = Integer.MAX_VALUE;
 
+        // 초기 데이터
         for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
             for (int j = 0; j < N; j++) {
                 int n = Integer.parseInt(st.nextToken());
-                map[i][j] = Integer.MAX_VALUE;
-                if (n == 1) homes.add(new int[] {i, j});
-                else if (n == 2) chickens.add(new int[] {i, j});
+                map[i][j] = n;
+                
+                // 집, 치킨 좌표
+                if (n == 1) homes.add(new Pos(i, j));
+                else if (n == 2) chickens.add(new Pos(i, j));
             }
         }
 
-        visited = new boolean[chickens.size()];
-        dfs(0, 0, map);
-        
+        open = new boolean[chickens.size()];
+        dfs(0, 0);
         System.out.println(min);
     }
 
-    private static void dfs(int idx, int depth, int[][] map) {
-
-        int[] now = chickens.get(idx);
-        int[][] copyMap = copy(map);
-        if(depth != 0) bfs(now[0], now[1], copyMap);
-
+    private static void dfs(int idx, int depth) {
         if (depth == M) {
             int sum = 0;
-            for (int[] pos : homes) {
-                sum += copyMap[pos[0]][pos[1]];
+
+            for (int i = 0; i < homes.size(); i++) {
+                int temp = Integer.MAX_VALUE;
+
+                // 집에서 오픈된 치킨집 거리 중 최소 거리를 구함
+                for (int j = 0; j < chickens.size(); j++) {
+                    if (open[j]) {
+                        int distance = Math.abs(homes.get(i).x - chickens.get(j).x) + Math.abs(homes.get(i).y - chickens.get(j).y);
+                        temp = Math.min(temp, distance);
+                    }
+                }
+                sum += temp;
             }
             min = Math.min(min, sum);
             return;
         }
 
-        for (int i = 0; i < chickens.size(); i++) {
-            if (!visited[i]) {
-                visited[i] = true;
-                dfs(i, depth + 1, copyMap);
-                visited[i] = false;
-            }
-        }     
-    }
-
-    private static void bfs(int r, int c, int[][] map) {
-        Queue<int[]> q = new LinkedList<>();
-        map[r][c] = 0;
-        q.offer(new int[] {r, c});
-        
-        while(!q.isEmpty()) {
-            int[] now = q.poll();
-
-            for (int i = 0; i < 4; i++) {
-                int nr = now[0] + dr[i];
-                int nc = now[1] + dc[i];
-                
-                if (isInMap(nr, nc) && (map[nr][nc] == Integer.MAX_VALUE || map[nr][nc] > map[now[0]][now[1]] + 1)) {
-                    map[nr][nc] = Math.min(map[nr][nc], map[now[0]][now[1]] + 1);
-                    q.add(new int[] {nr, nc});
-                }
-            }
+        // 이렇게 돌리면 중복되지 않고 모든 경우의 수를 돌릴 수 있음
+        for (int i = idx; i < chickens.size(); i++) {
+            open[i] = true;
+            dfs(i + 1, depth + 1);
+            open[i] = false;
         }
-
-    }
-
-    private static int[][] copy(int[][] map) {
-        int[][] copyMap = new int[N][N];
-        for (int i = 0; i < N; i++) {
-            copyMap[i] = map[i].clone();
-        }
-        return copyMap;
-    }
-
-    private static boolean isInMap(int r, int c) {
-        return r >= 0 && r < N && c >= 0 && c < N;
-    }
-
-    private static void printMap(int[][] map) {
-        System.out.println("==============================");
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                System.out.print(map[i][j] + " ");
-            }
-            System.out.println();
-        }
-        
     }
 }
