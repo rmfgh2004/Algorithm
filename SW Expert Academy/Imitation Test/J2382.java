@@ -2,11 +2,11 @@ import java.util.*;
 import java.io.*;
 
 class Cell {
-    int r;
-    int c;
-    int n;
-    int d;
-    int time;
+    int r; // 세로
+    int c; // 가로
+    int n; // 미생물
+    int d; // 방향
+    int time; // 시간
 
     Cell(int r, int c, int n, int d, int time) {
         this.r = r;
@@ -19,6 +19,7 @@ class Cell {
 
 public class J2382 {
 
+    // 1상2하3좌4우
     static int[] dr = {0, -1, 1, 0, 0};
     static int[] dc = {0, 0, 0, -1, 1};
     static int N, M, K;
@@ -61,6 +62,7 @@ public class J2382 {
                 // printMap();
             }
 
+            // 미생물 카운트
             int sum = 0;
             for (int r = 0; r < N; r++) {
                 for (int c = 0; c < N; c++) {
@@ -88,10 +90,11 @@ public class J2382 {
                     Cell cell = cells[r][c].remove(0);
                     // 이미 움직인 애들은 그만
                     if (cell.time != time) {
-                        cells[r][c].add(cell);
+                        cells[r][c].add(cell); // 위에서 remove해서 다시 add해줘야함.
                         continue;
                     }
 
+                    // 이동 후 시간++ add
                     int nr = cell.r + dr[cell.d];
                     int nc = cell.c + dc[cell.d];
                     cells[nr][nc].add(new Cell(nr, nc, cell.n, cell.d, time + 1));
@@ -111,7 +114,7 @@ public class J2382 {
                     Cell cell = cells[r][c].remove(0);
                     cell.d = changeDirection(cell.d);
                     cell.n /= 2;
-                    if (cell.n != 0) cells[r][c].add(cell);
+                    if (cell.n != 0) cells[r][c].add(cell); // 미생물 0이면 제외
                 } else if ((c == 0 || c == N - 1) && !cells[r][c].isEmpty()) { // 좌, 우 약품
                     Cell cell = cells[r][c].remove(0);
                     cell.d = changeDirection(cell.d);
@@ -137,6 +140,7 @@ public class J2382 {
 
     }
 
+    // 방향 전환
     private static int changeDirection(int d) {
         switch (d) {
             case 1: return 2;
